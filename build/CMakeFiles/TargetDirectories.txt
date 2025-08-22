@@ -1,0 +1,4 @@
+/Users/igor/Documents/Velda/solo/HeavenlyWebGu/build/CMakeFiles/HeavenlyWebGu.dir
+/Users/igor/Documents/Velda/solo/HeavenlyWebGu/build/CMakeFiles/rust_components.dir
+/Users/igor/Documents/Velda/solo/HeavenlyWebGu/build/CMakeFiles/edit_cache.dir
+/Users/igor/Documents/Velda/solo/HeavenlyWebGu/build/CMakeFiles/rebuild_cache.dir
