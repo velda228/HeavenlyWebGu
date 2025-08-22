@@ -430,6 +430,30 @@ src/cpp/renderer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HeavenlyWebGu.dir/build.make CMakeFiles/HeavenlyWebGu.dir/src/cpp/renderer.cpp.s
 .PHONY : src/cpp/renderer.cpp.s
 
+src/cpp/rust_html_renderer.o: src/cpp/rust_html_renderer.cpp.o
+.PHONY : src/cpp/rust_html_renderer.o
+
+# target to build an object file
+src/cpp/rust_html_renderer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HeavenlyWebGu.dir/build.make CMakeFiles/HeavenlyWebGu.dir/src/cpp/rust_html_renderer.cpp.o
+.PHONY : src/cpp/rust_html_renderer.cpp.o
+
+src/cpp/rust_html_renderer.i: src/cpp/rust_html_renderer.cpp.i
+.PHONY : src/cpp/rust_html_renderer.i
+
+# target to preprocess a source file
+src/cpp/rust_html_renderer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HeavenlyWebGu.dir/build.make CMakeFiles/HeavenlyWebGu.dir/src/cpp/rust_html_renderer.cpp.i
+.PHONY : src/cpp/rust_html_renderer.cpp.i
+
+src/cpp/rust_html_renderer.s: src/cpp/rust_html_renderer.cpp.s
+.PHONY : src/cpp/rust_html_renderer.s
+
+# target to generate assembly for a file
+src/cpp/rust_html_renderer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/HeavenlyWebGu.dir/build.make CMakeFiles/HeavenlyWebGu.dir/src/cpp/rust_html_renderer.cpp.s
+.PHONY : src/cpp/rust_html_renderer.cpp.s
+
 src/cpp/simple_html_renderer.o: src/cpp/simple_html_renderer.cpp.o
 .PHONY : src/cpp/simple_html_renderer.o
 
@@ -500,6 +524,9 @@ help:
 	@echo "... src/cpp/renderer.o"
 	@echo "... src/cpp/renderer.i"
 	@echo "... src/cpp/renderer.s"
+	@echo "... src/cpp/rust_html_renderer.o"
+	@echo "... src/cpp/rust_html_renderer.i"
+	@echo "... src/cpp/rust_html_renderer.s"
 	@echo "... src/cpp/simple_html_renderer.o"
 	@echo "... src/cpp/simple_html_renderer.i"
 	@echo "... src/cpp/simple_html_renderer.s"

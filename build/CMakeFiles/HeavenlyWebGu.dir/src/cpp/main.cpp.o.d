@@ -1418,7 +1418,7 @@ CMakeFiles/HeavenlyWebGu.dir/src/cpp/main.cpp.o: \
   /usr/local/Cellar/gtk+3/3.24.49/include/gtk-3.0/gtk/deprecated/gtkvscrollbar.h \
   /usr/local/Cellar/gtk+3/3.24.49/include/gtk-3.0/gtk/deprecated/gtkvseparator.h \
   /usr/local/Cellar/gtk+3/3.24.49/include/gtk-3.0/gtk/gtk-autocleanups.h \
-  /Users/igor/Documents/Velda/solo/HeavenlyWebGu/src/cpp/simple_html_renderer.h \
+  /Users/igor/Documents/Velda/solo/HeavenlyWebGu/src/cpp/rust_html_renderer.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/map \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__tree \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream \

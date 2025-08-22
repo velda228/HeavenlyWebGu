@@ -1,5 +1,6 @@
 #include "browser.h"
 #include "browser_styles.h"
+#include "rust_html_renderer.h"
 #include <iostream>
 #include <gtk/gtk.h>
 
@@ -17,18 +18,31 @@ Browser::Browser()
     , cookies_enabled(true)
     , popups_blocked(true)
     , https_only(false)
+    , current_fetch_handle(nullptr)
+    , loading_timer_id(0)
 {
     // Инициализируем Rust парсеры
     html_parser = html_parse_new();
     // css_parser = css_parse_new(); // TODO: Добавить CSS парсер
     
-    // Инициализируем HTML рендерер
-               html_renderer = new SimpleHtmlRenderer();
+    // Инициализируем Rust HTML рендерер
+    html_renderer = new RustHtmlRenderer();
     
     user_agent = "HeavenlyWebGu/1.0 (X11; Linux x86_64) AppleWebKit/537.36";
 }
 
 Browser::~Browser() {
+    // Останавливаем таймер загрузки
+    if (loading_timer_id > 0) {
+        g_source_remove(loading_timer_id);
+    }
+    
+    // Очищаем асинхронную загрузку
+    if (current_fetch_handle) {
+        // TODO: Отменить загрузку если возможно
+        current_fetch_handle = nullptr;
+    }
+    
     if (html_parser) {
         html_parse_free(html_parser);
     }
@@ -192,23 +206,27 @@ void Browser::navigate(const std::string& url) {
     current_url = url;
     update_address_bar();
     
+    // Используем асинхронную загрузку
+    navigate_async(url);
+}
+
+void Browser::navigate_async(const std::string& url) {
+    // Останавливаем предыдущую загрузку
+    if (loading_timer_id > 0) {
+        g_source_remove(loading_timer_id);
+        loading_timer_id = 0;
+    }
+    
     // Проверяем кэш
     if (is_cached(url)) {
         update_status_bar("Загружаем из кэша: " + url);
         
         // Показываем прогресс загрузки
         show_loading_progress(true);
-        update_loading_progress(0.5);
-        
-        // Используем кэшированные данные
-        std::string cached_content = page_cache[url];
-        std::string cached_parsed = parsed_cache[url];
-        
         update_loading_progress(0.8);
-        update_status_bar("Рендерим из кэша: " + url);
         
         // Рендерим кэшированную страницу
-        if (html_renderer->parse_html(cached_parsed)) {
+        if (html_renderer->parse_from_rust(html_parser)) {
             GtkWidget* scrolled_window = gtk_widget_get_parent(content_view);
             if (scrolled_window) {
                 gtk_container_remove(GTK_CONTAINER(scrolled_window), content_view);
@@ -240,87 +258,129 @@ void Browser::navigate(const std::string& url) {
     update_loading_progress(0.1);
     update_status_bar("Начинаем загрузку: " + url);
     
-    // Обновляем UI
-    while (gtk_events_pending()) {
-        gtk_main_iteration();
+    // Запускаем асинхронную загрузку
+    current_fetch_handle = network_fetch_url_async(url.c_str());
+    pending_url = url;
+    
+    if (current_fetch_handle) {
+        // Запускаем таймер для проверки прогресса
+        loading_timer_id = g_timeout_add(100, on_loading_timer, this);
+        update_loading_progress(0.2);
+        update_status_bar("Загружаем HTML: " + url);
+    } else {
+        // Ошибка запуска загрузки
+        display_content("Ошибка запуска загрузки: " + url);
+        update_status_bar("Ошибка запуска загрузки: " + url);
+        show_loading_progress(false);
+    }
+}
+
+gboolean Browser::on_loading_timer(gpointer data) {
+    Browser* browser = static_cast<Browser*>(data);
+    browser->check_loading_progress();
+    return TRUE; // Продолжаем таймер
+}
+
+void Browser::check_loading_progress() {
+    if (!current_fetch_handle) {
+        loading_timer_id = 0;
+        return;
     }
     
-    // Используем Rust сетевой модуль для получения HTML
-    update_loading_progress(0.3);
-    update_status_bar("Загружаем HTML: " + url);
+    int status = network_fetch_url_check(current_fetch_handle);
     
-    char* html_content = network_fetch_url(url.c_str());
-    if (html_content) {
-        update_loading_progress(0.6);
-        update_status_bar("Парсим HTML: " + url);
+    if (status == 1) { // Загрузка завершена
+        g_source_remove(loading_timer_id);
+        loading_timer_id = 0;
         
-        // Парсим HTML через Rust
-        char* parsed_html = html_parse_string(html_parser, html_content);
-        if (parsed_html) {
+        update_loading_progress(0.6);
+        update_status_bar("Парсим HTML: " + pending_url);
+        
+        // Получаем результат
+        char* html_content = network_fetch_url_result(current_fetch_handle);
+        current_fetch_handle = nullptr;
+        
+        if (html_content) {
+            std::cout << "HTML загружен асинхронно, длина: " << strlen(html_content) << std::endl;
+            
             update_loading_progress(0.8);
-            update_status_bar("Рендерим страницу: " + url);
+            update_status_bar("Рендерим страницу: " + pending_url);
             
-            // Используем HTML рендерер для отображения
-            std::cout << "Пытаемся распарсить HTML напрямую, длина: " << strlen(html_content) << std::endl;
-            
-            if (html_renderer->parse_html(html_content)) {
-                std::cout << "HTML успешно распарсен, рендерим..." << std::endl;
+            // Парсим HTML через Rust
+            if (html_parse_string(html_parser, html_content)) {
+                std::cout << "HTML успешно распарсен через Rust, рендерим..." << std::endl;
                 
-                // Очищаем текущий контент
-                GtkWidget* scrolled_window = gtk_widget_get_parent(content_view);
-                if (scrolled_window) {
-                    gtk_container_remove(GTK_CONTAINER(scrolled_window), content_view);
-                    
-                    // Создаем новый рендеринг
-                    GtkWidget* rendered_content = html_renderer->render_to_widget();
-                    if (rendered_content) {
-                        std::cout << "Контент отрендерен, добавляем в окно..." << std::endl;
-                        content_view = rendered_content;
-                        gtk_container_add(GTK_CONTAINER(scrolled_window), content_view);
-                        gtk_widget_show_all(scrolled_window);
+                // Передаем данные от Rust парсера в рендерер
+                if (html_renderer->parse_from_rust(html_parser)) {
+                    // Очищаем текущий контент
+                    GtkWidget* scrolled_window = gtk_widget_get_parent(content_view);
+                    if (scrolled_window) {
+                        gtk_container_remove(GTK_CONTAINER(scrolled_window), content_view);
                         
-                        // Принудительно обновляем UI
-                        gtk_widget_queue_draw(scrolled_window);
-                        gtk_widget_queue_draw(content_view);
+                        // Создаем новый рендеринг
+                        GtkWidget* rendered_content = html_renderer->render_to_widget();
+                        if (rendered_content) {
+                            std::cout << "Контент отрендерен, добавляем в окно..." << std::endl;
+                            content_view = rendered_content;
+                            gtk_container_add(GTK_CONTAINER(scrolled_window), content_view);
+                            gtk_widget_show_all(scrolled_window);
+                            
+                            // Принудительно обновляем UI
+                            gtk_widget_queue_draw(scrolled_window);
+                            gtk_widget_queue_draw(content_view);
+                        } else {
+                            std::cout << "Ошибка: рендеринг вернул nullptr" << std::endl;
+                            display_content("Ошибка рендеринга страницы");
+                        }
                     } else {
-                        std::cout << "Ошибка: рендеринг вернул nullptr" << std::endl;
-                        display_content("Ошибка рендеринга страницы");
+                        std::cout << "Ошибка: не найден scrolled_window" << std::endl;
+                        display_content("Ошибка: не найден контейнер для контента");
                     }
                 } else {
-                    std::cout << "Ошибка: не найден scrolled_window" << std::endl;
-                    display_content("Ошибка: не найден контейнер для контента");
+                    std::cout << "Ошибка рендеринга HTML" << std::endl;
+                    display_content("Ошибка рендеринга HTML");
                 }
             } else {
-                std::cout << "Ошибка парсинга HTML, показываем исходный HTML" << std::endl;
-                // Если рендеринг не удался, показываем исходный HTML
-                std::string html_content = "Ошибка парсинга HTML. Исходный HTML:\n\n";
-                html_content += html_content;
-                display_content(html_content);
+                std::cout << "Ошибка парсинга HTML через Rust" << std::endl;
+                display_content("Ошибка парсинга HTML через Rust");
             }
             
             // Кэшируем страницу
             std::string html_str(html_content);
-            std::string parsed_str(parsed_html);
-            cache_page(url, html_str, parsed_str);
+            cache_page(pending_url, html_str, "");
             
-            string_free(parsed_html);
+            string_free(html_content);
+            
+            update_loading_progress(1.0);
+            update_status_bar("Загрузка завершена: " + pending_url);
+        } else {
+            // Ошибка загрузки
+            display_content("Ошибка загрузки страницы: " + pending_url);
+            update_status_bar("Ошибка загрузки: " + pending_url);
         }
-        string_free(html_content);
         
-        update_loading_progress(1.0);
-        update_status_bar("Загрузка завершена: " + url);
+        // Скрываем прогресс бар через небольшую задержку
+        g_timeout_add(1000, [](gpointer data) -> gboolean {
+            Browser* browser = static_cast<Browser*>(data);
+            browser->show_loading_progress(false);
+            return G_SOURCE_REMOVE;
+        }, this);
+        
+    } else if (status == -1) { // Ошибка
+        g_source_remove(loading_timer_id);
+        loading_timer_id = 0;
+        current_fetch_handle = nullptr;
+        
+        display_content("Ошибка загрузки страницы: " + pending_url);
+        update_status_bar("Ошибка загрузки: " + pending_url);
+        show_loading_progress(false);
     } else {
-        // Fallback - показываем ошибку
-        display_content("Ошибка загрузки страницы: " + url);
-        update_status_bar("Ошибка загрузки: " + url);
+        // Еще загружается, обновляем прогресс
+        static int progress_step = 0;
+        progress_step = (progress_step + 1) % 20;
+        double progress = 0.2 + (progress_step * 0.02); // От 0.2 до 0.6
+        update_loading_progress(progress);
     }
-    
-    // Скрываем прогресс бар через небольшую задержку
-    g_timeout_add(1000, [](gpointer data) -> gboolean {
-        Browser* browser = static_cast<Browser*>(data);
-        browser->show_loading_progress(false);
-        return G_SOURCE_REMOVE;
-    }, this);
 }
 
 void Browser::reload() {

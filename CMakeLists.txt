@@ -32,6 +32,7 @@ set(CPP_SOURCES
     src/cpp/html_renderer.cpp
     src/cpp/browser_styles.cpp
     src/cpp/simple_html_renderer.cpp
+    src/cpp/rust_html_renderer.cpp
 )
 
 set(C_SOURCES

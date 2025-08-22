@@ -212,10 +212,24 @@ CMakeFiles/HeavenlyWebGu.dir/src/cpp/simple_html_renderer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/HeavenlyWebGu.dir/src/cpp/simple_html_renderer.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/igor/Documents/Velda/solo/HeavenlyWebGu/src/cpp/simple_html_renderer.cpp -o CMakeFiles/HeavenlyWebGu.dir/src/cpp/simple_html_renderer.cpp.s
 
+CMakeFiles/HeavenlyWebGu.dir/src/cpp/rust_html_renderer.cpp.o: CMakeFiles/HeavenlyWebGu.dir/flags.make
+CMakeFiles/HeavenlyWebGu.dir/src/cpp/rust_html_renderer.cpp.o: /Users/igor/Documents/Velda/solo/HeavenlyWebGu/src/cpp/rust_html_renderer.cpp
+CMakeFiles/HeavenlyWebGu.dir/src/cpp/rust_html_renderer.cpp.o: CMakeFiles/HeavenlyWebGu.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/igor/Documents/Velda/solo/HeavenlyWebGu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/HeavenlyWebGu.dir/src/cpp/rust_html_renderer.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/HeavenlyWebGu.dir/src/cpp/rust_html_renderer.cpp.o -MF CMakeFiles/HeavenlyWebGu.dir/src/cpp/rust_html_renderer.cpp.o.d -o CMakeFiles/HeavenlyWebGu.dir/src/cpp/rust_html_renderer.cpp.o -c /Users/igor/Documents/Velda/solo/HeavenlyWebGu/src/cpp/rust_html_renderer.cpp
+
+CMakeFiles/HeavenlyWebGu.dir/src/cpp/rust_html_renderer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/HeavenlyWebGu.dir/src/cpp/rust_html_renderer.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/igor/Documents/Velda/solo/HeavenlyWebGu/src/cpp/rust_html_renderer.cpp > CMakeFiles/HeavenlyWebGu.dir/src/cpp/rust_html_renderer.cpp.i
+
+CMakeFiles/HeavenlyWebGu.dir/src/cpp/rust_html_renderer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/HeavenlyWebGu.dir/src/cpp/rust_html_renderer.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/igor/Documents/Velda/solo/HeavenlyWebGu/src/cpp/rust_html_renderer.cpp -o CMakeFiles/HeavenlyWebGu.dir/src/cpp/rust_html_renderer.cpp.s
+
 CMakeFiles/HeavenlyWebGu.dir/src/c/system.c.o: CMakeFiles/HeavenlyWebGu.dir/flags.make
 CMakeFiles/HeavenlyWebGu.dir/src/c/system.c.o: /Users/igor/Documents/Velda/solo/HeavenlyWebGu/src/c/system.c
 CMakeFiles/HeavenlyWebGu.dir/src/c/system.c.o: CMakeFiles/HeavenlyWebGu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/igor/Documents/Velda/solo/HeavenlyWebGu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/HeavenlyWebGu.dir/src/c/system.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/igor/Documents/Velda/solo/HeavenlyWebGu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/HeavenlyWebGu.dir/src/c/system.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/HeavenlyWebGu.dir/src/c/system.c.o -MF CMakeFiles/HeavenlyWebGu.dir/src/c/system.c.o.d -o CMakeFiles/HeavenlyWebGu.dir/src/c/system.c.o -c /Users/igor/Documents/Velda/solo/HeavenlyWebGu/src/c/system.c
 
 CMakeFiles/HeavenlyWebGu.dir/src/c/system.c.i: cmake_force
@@ -229,7 +243,7 @@ CMakeFiles/HeavenlyWebGu.dir/src/c/system.c.s: cmake_force
 CMakeFiles/HeavenlyWebGu.dir/src/c/platform.c.o: CMakeFiles/HeavenlyWebGu.dir/flags.make
 CMakeFiles/HeavenlyWebGu.dir/src/c/platform.c.o: /Users/igor/Documents/Velda/solo/HeavenlyWebGu/src/c/platform.c
 CMakeFiles/HeavenlyWebGu.dir/src/c/platform.c.o: CMakeFiles/HeavenlyWebGu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/igor/Documents/Velda/solo/HeavenlyWebGu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/HeavenlyWebGu.dir/src/c/platform.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/igor/Documents/Velda/solo/HeavenlyWebGu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object CMakeFiles/HeavenlyWebGu.dir/src/c/platform.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/HeavenlyWebGu.dir/src/c/platform.c.o -MF CMakeFiles/HeavenlyWebGu.dir/src/c/platform.c.o.d -o CMakeFiles/HeavenlyWebGu.dir/src/c/platform.c.o -c /Users/igor/Documents/Velda/solo/HeavenlyWebGu/src/c/platform.c
 
 CMakeFiles/HeavenlyWebGu.dir/src/c/platform.c.i: cmake_force
@@ -243,7 +257,7 @@ CMakeFiles/HeavenlyWebGu.dir/src/c/platform.c.s: cmake_force
 CMakeFiles/HeavenlyWebGu.dir/src/c/memory.c.o: CMakeFiles/HeavenlyWebGu.dir/flags.make
 CMakeFiles/HeavenlyWebGu.dir/src/c/memory.c.o: /Users/igor/Documents/Velda/solo/HeavenlyWebGu/src/c/memory.c
 CMakeFiles/HeavenlyWebGu.dir/src/c/memory.c.o: CMakeFiles/HeavenlyWebGu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/igor/Documents/Velda/solo/HeavenlyWebGu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object CMakeFiles/HeavenlyWebGu.dir/src/c/memory.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/igor/Documents/Velda/solo/HeavenlyWebGu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object CMakeFiles/HeavenlyWebGu.dir/src/c/memory.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/HeavenlyWebGu.dir/src/c/memory.c.o -MF CMakeFiles/HeavenlyWebGu.dir/src/c/memory.c.o.d -o CMakeFiles/HeavenlyWebGu.dir/src/c/memory.c.o -c /Users/igor/Documents/Velda/solo/HeavenlyWebGu/src/c/memory.c
 
 CMakeFiles/HeavenlyWebGu.dir/src/c/memory.c.i: cmake_force
@@ -266,6 +280,7 @@ HeavenlyWebGu_OBJECTS = \
 "CMakeFiles/HeavenlyWebGu.dir/src/cpp/html_renderer.cpp.o" \
 "CMakeFiles/HeavenlyWebGu.dir/src/cpp/browser_styles.cpp.o" \
 "CMakeFiles/HeavenlyWebGu.dir/src/cpp/simple_html_renderer.cpp.o" \
+"CMakeFiles/HeavenlyWebGu.dir/src/cpp/rust_html_renderer.cpp.o" \
 "CMakeFiles/HeavenlyWebGu.dir/src/c/system.c.o" \
 "CMakeFiles/HeavenlyWebGu.dir/src/c/platform.c.o" \
 "CMakeFiles/HeavenlyWebGu.dir/src/c/memory.c.o"
@@ -283,6 +298,7 @@ HeavenlyWebGu: CMakeFiles/HeavenlyWebGu.dir/src/cpp/network.cpp.o
 HeavenlyWebGu: CMakeFiles/HeavenlyWebGu.dir/src/cpp/html_renderer.cpp.o
 HeavenlyWebGu: CMakeFiles/HeavenlyWebGu.dir/src/cpp/browser_styles.cpp.o
 HeavenlyWebGu: CMakeFiles/HeavenlyWebGu.dir/src/cpp/simple_html_renderer.cpp.o
+HeavenlyWebGu: CMakeFiles/HeavenlyWebGu.dir/src/cpp/rust_html_renderer.cpp.o
 HeavenlyWebGu: CMakeFiles/HeavenlyWebGu.dir/src/c/system.c.o
 HeavenlyWebGu: CMakeFiles/HeavenlyWebGu.dir/src/c/platform.c.o
 HeavenlyWebGu: CMakeFiles/HeavenlyWebGu.dir/src/c/memory.c.o
@@ -291,7 +307,7 @@ HeavenlyWebGu: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platf
 HeavenlyWebGu: /usr/local/lib/libglfw.3.4.dylib
 HeavenlyWebGu: /Users/igor/Documents/Velda/solo/HeavenlyWebGu/src/rust/target/release/libheavenly_webgu_rust.a
 HeavenlyWebGu: CMakeFiles/HeavenlyWebGu.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/igor/Documents/Velda/solo/HeavenlyWebGu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Linking CXX executable HeavenlyWebGu"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/igor/Documents/Velda/solo/HeavenlyWebGu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Linking CXX executable HeavenlyWebGu"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/HeavenlyWebGu.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

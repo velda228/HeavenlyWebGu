@@ -23,6 +23,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/HeavenlyWebGu.dir/src/cpp/network.cpp.o.d"
   "CMakeFiles/HeavenlyWebGu.dir/src/cpp/renderer.cpp.o"
   "CMakeFiles/HeavenlyWebGu.dir/src/cpp/renderer.cpp.o.d"
+  "CMakeFiles/HeavenlyWebGu.dir/src/cpp/rust_html_renderer.cpp.o"
+  "CMakeFiles/HeavenlyWebGu.dir/src/cpp/rust_html_renderer.cpp.o.d"
   "CMakeFiles/HeavenlyWebGu.dir/src/cpp/simple_html_renderer.cpp.o"
   "CMakeFiles/HeavenlyWebGu.dir/src/cpp/simple_html_renderer.cpp.o.d"
   "HeavenlyWebGu"

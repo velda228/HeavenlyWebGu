@@ -417,6 +417,7 @@ name = "heavenly-webgu-rust"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "base64",
  "cssparser 0.33.0",
  "env_logger",
  "hex",

@@ -4,7 +4,7 @@
 #include <memory>
 #include <vector>
 #include <gtk/gtk.h>
-#include "simple_html_renderer.h"
+#include "rust_html_renderer.h"
 
 // FFI интерфейсы для Rust
 extern "C" {
@@ -14,7 +14,24 @@ extern "C" {
     HtmlParser* html_parse_new();
     void html_parse_free(HtmlParser* parser);
     char* html_parse_string(HtmlParser* parser, const char* html);
+    
+    // Новые функции для работы с элементами
+    size_t html_get_element_count(HtmlParser* parser);
+    char* html_get_element_tag_name(HtmlParser* parser, size_t index);
+    char* html_get_element_text(HtmlParser* parser, size_t index);
+    char* html_get_element_attribute(HtmlParser* parser, size_t element_index, const char* attr_name);
+    size_t html_get_element_attribute_count(HtmlParser* parser, size_t element_index);
+    char* html_get_element_attribute_name(HtmlParser* parser, size_t element_index, size_t attr_index);
+    
     char* network_fetch_url(const char* url);
+    char* network_fetch_image(const char* url);
+    
+    // Асинхронные сетевые функции
+    struct AsyncFetchHandle;
+    AsyncFetchHandle* network_fetch_url_async(const char* url);
+    int network_fetch_url_check(AsyncFetchHandle* handle);
+    char* network_fetch_url_result(AsyncFetchHandle* handle);
+    
     void string_free(char* ptr);
 }
 
@@ -72,7 +89,7 @@ private:
     CssParser* css_parser;
     
     // HTML рендерер
-    SimpleHtmlRenderer* html_renderer;
+    RustHtmlRenderer* html_renderer;
     
     // Состояние браузера
     std::string current_url;
@@ -86,6 +103,11 @@ private:
     std::map<std::string, std::string> page_cache;
     std::map<std::string, std::string> parsed_cache;
     
+    // Асинхронная загрузка
+    AsyncFetchHandle* current_fetch_handle;
+    std::string pending_url;
+    guint loading_timer_id;
+    
     // Приватные методы
     void setup_ui();
     void setup_signals();
@@ -94,6 +116,11 @@ private:
     void update_address_bar();
     void update_status_bar(const std::string& message);
     void display_content(const std::string& content);
+    
+    // Асинхронная загрузка
+    void navigate_async(const std::string& url);
+    void check_loading_progress();
+    static gboolean on_loading_timer(gpointer data);
     
     // Обработчики событий
     static void on_back_clicked(GtkButton* button, Browser* browser);

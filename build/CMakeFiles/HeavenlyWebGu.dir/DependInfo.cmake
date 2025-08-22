@@ -20,6 +20,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/igor/Documents/Velda/solo/HeavenlyWebGu/src/cpp/main.cpp" "CMakeFiles/HeavenlyWebGu.dir/src/cpp/main.cpp.o" "gcc" "CMakeFiles/HeavenlyWebGu.dir/src/cpp/main.cpp.o.d"
   "/Users/igor/Documents/Velda/solo/HeavenlyWebGu/src/cpp/network.cpp" "CMakeFiles/HeavenlyWebGu.dir/src/cpp/network.cpp.o" "gcc" "CMakeFiles/HeavenlyWebGu.dir/src/cpp/network.cpp.o.d"
   "/Users/igor/Documents/Velda/solo/HeavenlyWebGu/src/cpp/renderer.cpp" "CMakeFiles/HeavenlyWebGu.dir/src/cpp/renderer.cpp.o" "gcc" "CMakeFiles/HeavenlyWebGu.dir/src/cpp/renderer.cpp.o.d"
+  "/Users/igor/Documents/Velda/solo/HeavenlyWebGu/src/cpp/rust_html_renderer.cpp" "CMakeFiles/HeavenlyWebGu.dir/src/cpp/rust_html_renderer.cpp.o" "gcc" "CMakeFiles/HeavenlyWebGu.dir/src/cpp/rust_html_renderer.cpp.o.d"
   "/Users/igor/Documents/Velda/solo/HeavenlyWebGu/src/cpp/simple_html_renderer.cpp" "CMakeFiles/HeavenlyWebGu.dir/src/cpp/simple_html_renderer.cpp.o" "gcc" "CMakeFiles/HeavenlyWebGu.dir/src/cpp/simple_html_renderer.cpp.o.d"
   )
 
